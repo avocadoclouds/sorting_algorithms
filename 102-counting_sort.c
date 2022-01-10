@@ -45,11 +45,7 @@ void counting_sort(int *array, size_t size)
 		return;
 	max = max_number(array, size);
 	new = malloc(sizeof(int) * (max + 1));
-	if (new == 0)
-		return;
-	output = malloc(sizeof(int) * (size + 1));
-	if (output == 0)
-		return;
+	output = malloc(sizeof(int) * (size));
 	for (j = 0; j <= max; j++)
 	{
 		new[j] = 0;
