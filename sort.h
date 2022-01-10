@@ -28,15 +28,8 @@ void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
 void quick_sort(int *array, size_t size);
-<<<<<<< HEAD
-void quickSort_recursion(int array [], int low, int high, size_t size);
-=======
 void shell_sort(int *array, size_t size);
-void swap(int *a, int *b);
-int partition(int array[], int low, int high);
-void quickSort_recursion(int array[], int low, int high);
 int max_number(int *array, size_t size);
 void counting_sort(int *array, size_t size);
->>>>>>> 6231a733ff146d899fead578d64fa728b440053e
 
 #endif
