@@ -61,13 +61,13 @@ void counting_sort(int *array, size_t size)
 	output = malloc(sizeof(int) * size);
 	for (i = 0; i < size; i++)
 	{
-		output[new[array[i] - 1]] = array[i];
+		output[new[array[i]] - 1] = array[i];
 		new[array[i]]--;
 	}
+	free(new);
 	for (i = 0; i < size; i++)
 	{
 		array[i] = output[i];
 	}
-	free(new);
 	free(output);
 }
