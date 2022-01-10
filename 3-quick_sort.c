@@ -1,48 +1,38 @@
 #include "sort.h"
-
-
 /**
- * swap - swaps number
- * @a: variable to swap
- * @b: variable to swap
- */
-void swap(int *a, int *b)
-{
-	int tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
-/**
- * partition - gives a pivot index for Quicksort
- * @array: array to find the pivot for
- * @high: index of the right element
- * @low: index of the left element
- * @size: size of array
+ * partition - find the partition for quicksort
+ * @array: the array to sort
+ * @lo: the lo
+ * @hi: the high
+ * @size: size of the array
  *
- * Return:  return index if the pivot
+ * Return: index for the partition
  */
-int partition(int array[], int low, int high, size_t size)
+int partition(int *array, int lo, int hi, size_t size)
 {
-	int pivot;
-	int i;
-	int j;
+	int i, j, pivot, tmp;
 
-	pivot = array[high];
-	i = (low - 1);
-	for (j = low; j < high; j++)
+	pivot = array[hi];
+	i = lo - 1;
+	for (j = lo; j < hi; j++)
 	{
 		if (array[j] <= pivot)
 		{
-			i++;
-			swap(&array[i], &array[j]);
-			print_array(array, size);
+			i = i + 1;
+			if (i != j)
+			{
+				tmp = array[i];
+				array[i] = array[j];
+				array[j] = tmp;
+				print_array(array, size);
+			}
 		}
 	}
-
-	if (i + 1 != high)
+	if (i + 1 != hi)
 	{
-		swap(&array[i + 1], &array[high]);
+		tmp = array[i + 1];
+		array[i + 1] = array[hi];
+		array[hi] = tmp;
 		print_array(array, size);
 	}
 
@@ -50,36 +40,36 @@ int partition(int array[], int low, int high, size_t size)
 }
 
 /**
- * quickSort_recursion - recursive function for quicksort
- * @array: array to be sorted
- * @high: index of the right element
- * @low: index of the left element
+ * quicksort - implementation of the quick sort algorithm
+ * @array: the array to sort
+ * @lo: the lo
+ * @hi: the high
  * @size: size of the array
+ *
+ * Return: void
  */
-
-void quickSort_recursion(int array[], int low, int high, size_t size)
+void quicksort(int *array, int lo, int hi, size_t size)
 {
-	int pivot;
+	int p;
 
-	if (low < high)
+	if (lo < hi)
 	{
-		pivot = partition(array, low, high, size);
-		quickSort_recursion(array, low, pivot - 1, size);
-		quickSort_recursion(array, pivot + 1, high, size);
+		p = partition(array, lo, hi, size);
+		quicksort(array, lo, p - 1, size);
+		quicksort(array, p + 1, hi, size);
 	}
-
 }
 
 /**
- * quick_sort - sorts an array with the Quicksort algorithm
- * @array: array of ints to sort
+ * quick_sort - implementation of the quick sort algorithm
+ * @array: the array to sort
  * @size: size of the array
+ *
+ * Return: void
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size < 2)
+	if (array == NULL || size < 2)
 		return;
-
-	quickSort_recursion(array, 0, (int)size - 1, size);
+	quicksort(array, 0, size - 1, size);
 }
-
