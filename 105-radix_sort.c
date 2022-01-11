@@ -46,7 +46,8 @@ void radix_sort_count(int *array, size_t size, int div)
 	size_t i;
 
 	digit = malloc(sizeof(int) * 10);
-	store = malloc(sizeof(int) * size);
+	for (i = 0; i < 10; i++)
+		digit[i] = 0;
 	for (i = 0; i < size; i++)
 	{
 		digit[(array[i] / div) % 10]++;
@@ -55,16 +56,19 @@ void radix_sort_count(int *array, size_t size, int div)
 	{
 		digit[j] += digit[j - 1];
 	}
+	store = malloc(sizeof(int) * size);
 	for (j = size - 1; j >= 0; j--)
 	{
 		store[digit[(array[j] / div) % 10] - 1] = array[j];
 		digit[(array[j] / div) % 10]--;
 	}
+	free(digit);
 	print_array(store, size);
 	for (i = 0; i < size; i++)
 	{
 		array[i] = store[i];
 	}
+	free(store);
 }
 
 /**
@@ -82,6 +86,8 @@ void radix_sort(int *array, size_t size)
 {
 	int max, div;
 
+	if (size < 2)
+		return;
 	max = max_number(array, size);
 	for (div = 1; (max / div) > 0; div *= 10)
 		radix_sort_count(array, size, div);
